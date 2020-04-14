@@ -16,3 +16,15 @@ size = comm.size
 
 # generate angka integer secara random untuk setiap proses
 angka = np.array(random.randint(1, size))
+
+if rank !=0 :
+    print("Rank",rank,"punya angka", angka)
+
+hasil = np.array(0)
+
+# lakukam penjumlahan dengan teknik reduce, root reduce adalah proses dengan rank 0
+comm.Reduce(angka, hasil, op=MPI.SUM, root=0)
+
+# jika saya proses dengan rank 0 maka saya akan menampilkan hasilnya
+if rank==0:
+    print("Rank", rank, "Hasil Semua tanpa (rank 0) : ", hasil-angka)
