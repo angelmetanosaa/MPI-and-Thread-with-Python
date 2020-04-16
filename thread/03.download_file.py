@@ -46,36 +46,47 @@ class SplitBufferThreads(threading.Thread):
         #menjalankan fungsi getFileData untuk membaca file
         return urllib.request.urlopen(self.req).read()
 
+#fungsi utama program,  
 def main(url=None, splitBy=3):
+    #membuat variable start_time untuk mengetahui waktu start
     start_time = time.time()
+    #jika url yang dimasukan salah, program meminta url yg valid
     if not url:
         print("Please Enter some url to begin download.")
         return
-
+    #membuat variable berdasarkan data split dalam url
     fileName = url.split('/')[-1]
+    #membuat variable yg berisi besar data 
     sizeInBytes = requests.head(url, headers={'Accept-Encoding': 'identity'}).headers.get('content-length', None)
+    #memberi keterangan jika terdapat download, dan menampilkan besar data yg tersimpan di sizeinbytes
     print("%s bytes to download." % sizeInBytes)
+    #kondisi jika sizeinbytes false, berarti tidak ada valid untuk di download, melakukan return value
     if not sizeInBytes:
         print("Size cannot be determined.")
         return
-
+    #variable array untuk menampung value
     dataLst = []
+    # looping sebanyak splitBY
     for idx in range(splitBy):
+        #melakukan pemecahan data per looping untuk dimasukan ke variable dataLst
         byteRange = buildRange(int(sizeInBytes), splitBy)[idx]
         bufTh = SplitBufferThreads(url, byteRange)
         bufTh.start()
         bufTh.join()
+        # data terdownload dimasukan ke var dataLst
         dataLst.append(bufTh.getFileData())
-
+    # variable menampung b dengan join array dataList
     content = b''.join(dataLst)
-
+    # jika file berhasil terdownload, hapus jejak download dan mengumpulkan data agar menjadi foto
     if dataLst:
+        #hapus cache jejak download
         if os.path.exists(fileName):
             os.remove(fileName)
         print("--- %s seconds ---" % str(time.time() - start_time))
+        #mengumpulkan data list dan menulis data foto yg didownload  
         with open(fileName, 'wb') as fh:
             fh.write(content)
         print("Finished Writing file %s" % fileName)
-
+#run main program
 if __name__ == '__main__':
     main(url)
