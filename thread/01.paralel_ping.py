@@ -11,26 +11,31 @@ class ip_check(threading.Thread):
     
     # fungsi __init__; init untuk assign IP dan hasil respons = -1
     def __init__ (self,ip):
-        
+        super(ip_check, self).__init__()
+        self.ip = ip
+        self.response = -1
     
     # fungsi utama yang diekseskusi ketika thread berjalan
-    def run(self):
+    def run (self):
         # lakukan ping dengan perintah ping -n (gunakan os.popen())
-        
+        ping = os.popen("ping -n 2 " + self.ip, "r")
         
         # loop forever
         while True:
             # baca hasil respon setiap baris
-            
+            line = ping.readline()
             
             # break jika tidak ada line lagi
-            
+            if not line :
+                break
             
             # baca hasil per line dan temukan pola Received = x
-            
+            recvd = regex.findall(line)
             
             # tampilkan hasilnya
-            
+            if recvd:
+                self.response = int(recvd[0])
+                print((self.ip + ": " + self.status()))            
                 
     # fungsi untuk mengetahui status; 0 = tidak ada respon, 1 = hidup tapi ada loss, 2 = hidup
     def status(self):
