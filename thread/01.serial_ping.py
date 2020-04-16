@@ -34,14 +34,16 @@ Approximate round trip times in milli-seconds:
 # jika received = 0 maka host mati
 # jika received = 1 maka host hidup tetapi ada ping yang hilang
 # jika received = 2 maka host hidup
-
+status = ("Tidak Ada Respon", "Hidup tetapi Ada yang Hilang", "Hidup")
 
 # lakukan ping untuk 20 host
-
+for suffix in range(1,20):
     # tentukan IP yang akan diping, hanya akan diubah bagian akhirnya
-    
+    ip = "20.30.40." + str(suffix)
     
     # lakukan ping -n 2
+    pingout = os.popen("ping -n 2 " +ip,"r")
+    print(("..... pinging ", ip))
     
 
     # loop forever
