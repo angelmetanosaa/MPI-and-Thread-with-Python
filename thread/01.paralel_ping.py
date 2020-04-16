@@ -1,8 +1,10 @@
 # import os, re dan threading
-
+import os
+import re
+import threading
 
 # import time
-
+import time
 
 # buat kelas ip_check
 class ip_check(threading.Thread):
