@@ -14,17 +14,17 @@ def main ():
     port = 12345
     
     # lakukan koneksi ke server
-    try:
-    
-    except:
+    try :
+        soc.connect((ip, port))
+    except :
         # print error
-        print("Koneksi error")
+        print("Koneksi Error!")
         # exit
         sys.exit()
     
     # tampilkan menu, enter quit to exit
-    print("Masukkan 'quit' untuk keluar")
-    message = input(" -> ")
+    print("Silahkan ketik 'quit' untuk Keluar dan Berhenti")
+    pesan = input(" ---> ")
 
     # selama pesan bukan "quit", lakukan loop forever
     while message != 'quit':
