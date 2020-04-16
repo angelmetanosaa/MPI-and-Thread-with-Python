@@ -25,17 +25,17 @@ def main ():
     # tampilkan menu, enter quit to exit
     print("Silahkan ketik 'quit' untuk Keluar dan Berhenti")
     pesan = input(" ---> ")
-
-    # selama pesan bukan "quit", lakukan loop forever
-    while message != 'quit':
-        # kirimkan pesan yang ditulis ke server
     
+    # selama pesan bukan "quit", lakukan loop forever
+    while pesan != 'quit':
+        # kirimkan pesan yang ditulis ke server
+        soc.send(pesan.encode())
         
         # menu (user interface)
-        message = input(" -> ")
+        pesan = input(" ---> ")
 
     # send "quit" ke server
-    soc.send(b'--quit--')
+    soc.send('== QUIT ==')
 
 # panggil fungsi utama
 if __name__ == "__main__":
