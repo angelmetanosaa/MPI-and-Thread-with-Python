@@ -64,28 +64,29 @@ checkresults = []
 # lakukan ping untuk 20 host
 for suffix in range(1,20):
     # tentukan IP host apa saja yang akan di ping
-    
+    iplist = ["170.60.190.30","170.60.190.31","170.60.190.32","170.60.190.33","170.60.190.34","170.60.190.35", "215.45.200.240"
+    ,"215.45.200.241","215.45.200.242","215.45.200.243","215.45.200.244","215.45.200.245", "169.65.190.35","169.65.190.36","169.65.190.37","169.65.190.38","169.65.190.39"
+    ,"169.65.190.40","169.65.190.41","169.65.190.42"]
     
     # panggil thread untuk setiap IP
-    
+    t = ip_check(iplist[suffix])
     
     # masukkan setiap IP dalam list
-    
+    checkresults.append(t)
     
     # jalankan thread
-    
+    t.start()
 
 # untuk setiap IP yang ada di list
-for el in check_results:
+for el in checkresults:
     
     # tunggu hingga thread selesai
     el.join()
     
     # dapatkan hasilnya
-    
 
 # catat waktu berakhir
-
+end = time.time()
 
 # tampilkan selisih waktu akhir dan awal
-
+print(end-start)
