@@ -1,16 +1,18 @@
 # import socket dan sys
+import socket
+import sys 
 
 # fungsi utama
-def main():
+def main ():
     # buat socket bertipe TCP
+    soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    
     # tentukan IP server target
+    ip = "127.0.0.1" 
     
+    # tentukan port server
+    port = 12345
     
-    # tentukan por server
-    
-
     # lakukan koneksi ke server
     try:
     
