@@ -45,23 +45,24 @@ for suffix in range(1,20):
     pingout = os.popen("ping -n 2 " +ip,"r")
     print(("..... pinging ", ip))
     
-
     # loop forever
     while True:
         # baca hasil dari perintah ping per line
-        
+        line = pingout.readline()
         
         # akan keluar dari loop jika tidak ada lagi line
-        
+        if not line : 
+            break
         
         # lakukan filtering dengan regex. gunakan findall dan regex filter yang sudah ditentukan
-        
+        jml_received = received_packages.findall(line)
         
         # tampilkan hasil regex untuk mengetahui banyaknya respon ping yang diperoleh 
-        
-            
+        if jml_received :
+            print((ip + " : " + status[int(jml_received[0])]))
 
 # ambil waktu berakhir
-
+end = time.time()
 
 # tampilkan selisih waktu akhir dengan awal untuk mengetahui lama waktu eksekusi
+print ("Lama Waktu Eksekusi = ", end-start)
