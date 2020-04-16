@@ -40,22 +40,26 @@ class ip_check(threading.Thread):
     # fungsi untuk mengetahui status; 0 = tidak ada respon, 1 = hidup tapi ada loss, 2 = hidup
     def status(self):
         # 0 = tidak ada respon
-        
-        
+        if self.response == 0:
+            return "Tidak Ada Respon"
         # 1 = ada loss
-        
+        if self.response == 1:
+            return "Ada Loss"
         # 2 = hidup
-        
+        if self.response == 2:
+            return "Hidup"
         # -1 = seharusnya tidak terjadi
+        if self.response == 3:
+            return "Seharusnya Tidak Terjadi"
             
 # buat regex untuk mengetahui isi dari r"Received = (\d)"
-
+regex = re.compile(r"Received = (\d)")
 
 # catat waktu awal
-
+start = time.time()
 
 # buat list untuk menampung hasil pengecekan
-
+checkresults = []
 
 # lakukan ping untuk 20 host
 for suffix in range(1,20):
