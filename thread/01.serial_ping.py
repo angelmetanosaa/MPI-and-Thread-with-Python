@@ -1,15 +1,16 @@
 # import library os (untuk melakukan perintah ping)
 # import library re (untuk melakukan filtering/regex)
-
+import os, re
 
 # import library time untuk mengukur waktu
-
+import time
 
 # ambil waktu awal menggunakan time.time()
-
+start = time.time()
 
 # gunakan regex filter t"Received = (\d)
 # regex ini digunakan untuk mencari kata "Received = x" x adalah angka (\d)
+received_packages = re.compile(r"Received = (\d)")
 
 """
 windows:
