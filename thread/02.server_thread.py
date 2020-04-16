@@ -1,5 +1,8 @@
 # import socket, sys, traceback dan threading
-
+import socket
+import sys
+import traceback
+import threading
 
 # jalankan server
 def main():
@@ -8,29 +11,30 @@ def main():
 # fungsi saat server dijalankan
 def start_server():
     # tentukan IP server
-
+    ip = "127.0.0.1"
     
     # tentukan port server
-
+    port = 12345
 
     # buat socket bertipe TCP
-
+    soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     
     # option socket
     soc.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    print("Socket dibuat")
+    print("Socket Telah dibuat")
 
     # lakukan bind
-    try:
-        
-    except:
+    try :
+        soc.bind((ip,port))
+    except :
         # exit pada saat error
-        print("Bind gagal. Error : " + str(sys.exc_info()))
+        print("Bind Gagal! Error : " + str(sys.exc_info()))
         sys.exit()
 
     # listen hingga 5 antrian
+    soc.listen(5)
     
-    print("Socket mendengarkan")
+    print("Socket sedang Mendengarkan")
 
     # infinite loop, jangan reset setiap ada request
     while True:
